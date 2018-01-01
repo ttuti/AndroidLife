@@ -4,8 +4,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import org.oxlifeproject.etat.db.config.SQLiteHelper;
 import org.oxlifeproject.etat.model.SectionModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,15 @@ import java.util.ArrayList;
 
 public class SectionDAO {
 
-    public ArrayList<SectionModel> getAllSections(SQLiteDatabase database) {
+    public ArrayList<SectionModel> getAllSections(SQLiteHelper sQLiteHelper) {
+
+        SQLiteDatabase database;
+
+        try {
+            database=sQLiteHelper.HelperSeqExec();
+        } catch (IOException mIOException) {
+            throw new Error("UnableToUpdateDatabase");
+        }
 
         Cursor cursor = database.rawQuery("SELECT * FROM Section", null);
         ArrayList<SectionModel> sections = new ArrayList<SectionModel>();

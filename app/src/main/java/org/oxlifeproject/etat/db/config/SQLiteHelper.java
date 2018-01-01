@@ -42,7 +42,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void updateDataBase() throws IOException {
-        Log.w(TAG,"Inside SQLiteOpenHelper.updateDatabase()");
         if (mNeedUpdate) {
             File dbFile = new File(DATABASE_PATH + DATABASE_NAME);
             if (dbFile.exists())
@@ -51,7 +50,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         }
     }
 
-    public SQLiteDatabase HelperSeqExec()throws IOException{
+    public synchronized SQLiteDatabase HelperSeqExec()throws IOException{
         updateDataBase();
         copyDataBase();
         if(!openDataBase()){
@@ -61,7 +60,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     private void copyDataBase() {
-        Log.w(TAG,"Inside SQLiteOpenHelper.copyDataBase()");
         File dbFile = new File(DATABASE_PATH + DATABASE_NAME);
         if (!dbFile.exists()) {
             this.getReadableDatabase();
@@ -83,7 +81,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     public boolean openDataBase() throws SQLException {
-        Log.w(TAG,"Inside SQLiteOpenHelper.openDataBase()");
         database = SQLiteDatabase.openDatabase(DATABASE_PATH + DATABASE_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
         return database != null;
     }
@@ -97,7 +94,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.w(TAG,"Inside SQLiteOpenHelper.onCreate()");
         try {
             this.updateDataBase();
         } catch (IOException mIOException) {
@@ -107,7 +103,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(TAG,"Inside SQLiteOpenHelper.onUpgrade()");
         if (newVersion > oldVersion)
             mNeedUpdate = true;
     }
