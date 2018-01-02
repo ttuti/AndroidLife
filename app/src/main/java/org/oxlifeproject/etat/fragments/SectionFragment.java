@@ -5,6 +5,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -67,14 +69,13 @@ public class SectionFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int SectionID=position+1;
                 Log.w(TAG,String.valueOf(SectionID));
-                ArrayList<SectionContentModel> sectionContent = sectionContentDAO.getAllSectionContent(sQLiteHelper,SectionID);
-                //TODO: Add ViewPager + fragments
-                /**
-                 *  Why is the code below not loading the section content in pages?
-                 */
-                View pagerView = mInflater.inflate(R.layout.pager_section_content, mContainer, false);
-                ViewPager viewPager = (ViewPager) pagerView.findViewById(R.id.viewpager);
-                viewPager.setAdapter(new SectionContentPagerAdapter(context,sectionContent));
+                FragmentManager fragmentManager =  SectionFragment.this.getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                ViewPagerFragment pagerFragment = new ViewPagerFragment();
+                transaction.replace(R.id.mainLayout, pagerFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
         });
         sQLiteHelper.close();
