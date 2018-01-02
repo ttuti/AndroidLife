@@ -68,10 +68,14 @@ public class SectionFragment extends Fragment {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int SectionID=position+1;
-                Log.w(TAG,String.valueOf(SectionID));
+                Log.w(TAG, String.valueOf(SectionID));
+                ViewPagerFragment pagerFragment = new ViewPagerFragment();
+                Bundle args = new Bundle();
+                args.putString("SECTION_ID", String.valueOf(SectionID));
+                pagerFragment.setArguments(args);
+
                 FragmentManager fragmentManager =  SectionFragment.this.getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                ViewPagerFragment pagerFragment = new ViewPagerFragment();
                 transaction.replace(R.id.mainLayout, pagerFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();

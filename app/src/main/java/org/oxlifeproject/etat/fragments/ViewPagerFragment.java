@@ -47,10 +47,10 @@ public class ViewPagerFragment extends Fragment {
         sectionDAO = new SectionDAO();
         sectionContentDAO = new SectionContentDAO();
 
-
         View thisView = inflater.inflate(R.layout.pager_section_content, container, false);
         viewPager = (ViewPager) thisView.findViewById(R.id.viewpager);
-        ArrayList<SectionContentModel> sectionContent = sectionContentDAO.getAllSectionContent(sQLiteHelper,1);
+        String sectionId = getArguments().getString("SECTION_ID");
+        ArrayList<SectionContentModel> sectionContent = sectionContentDAO.getAllSectionContent(sQLiteHelper,Integer.valueOf(sectionId));
         //TODO: Add ViewPager + fragments
         /**
          *  Why is the code below not loading the section content in pages?
