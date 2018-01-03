@@ -84,6 +84,10 @@ public class SectionContentModel implements Serializable {
         this.section = section;
     }
 
+    public String toString(){
+        return title;
+    }
+
 
 
 }
