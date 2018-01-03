@@ -62,7 +62,7 @@ public class ViewPagerFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(viewPager.getCurrentItem() < (content_count-2)){
+                if(viewPager.getCurrentItem() < (content_count-1)){
                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1,true);
                 }
             }

@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.oxlifeproject.etat.R;
+import org.oxlifeproject.etat.dao.SectionContentChildrenDAO;
+import org.oxlifeproject.etat.db.config.SQLiteHelper;
+import org.oxlifeproject.etat.model.SectionContentChildrenModel;
 import org.oxlifeproject.etat.model.SectionContentModel;
 
 import java.util.ArrayList;
@@ -22,11 +25,15 @@ public class ViewPagerChapterAdapter extends PagerAdapter {
 
     private ArrayList<SectionContentModel> content;
     private LayoutInflater inflater;
+    private SectionContentChildrenDAO sectionContentChildrenDAO;
+    private SQLiteHelper sQLiteHelper;
 
     public ViewPagerChapterAdapter(Context context, ArrayList<SectionContentModel> content) {
 
         this.content = content;
+        this.sQLiteHelper = new SQLiteHelper(context);
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.sectionContentChildrenDAO = new SectionContentChildrenDAO();
     }
     @Override
     public int getCount() {
@@ -44,6 +51,16 @@ public class ViewPagerChapterAdapter extends PagerAdapter {
         position = position % content.size();
 
         SectionContentModel sectionContentModel = content.get(position);
+
+        if(sectionContentModel.isHasChildren()){
+
+            ArrayList<SectionContentChildrenModel> children= sectionContentChildrenDAO.getContentChildren(sQLiteHelper,sectionContentModel.getId());
+            //TODO Add Tabs to show child content
+            /**
+             * What would fit here?
+             */
+
+        }
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.page_content, null);
 
         TextView title = layout.findViewById(R.id.contentTitle);
