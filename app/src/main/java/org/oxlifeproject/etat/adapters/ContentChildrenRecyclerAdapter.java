@@ -23,19 +23,18 @@ public class ContentChildrenRecyclerAdapter extends RecyclerView.Adapter<ChildCo
 
 
     private List<SectionContentChildrenModel> children;
-    private Context context;
 
-    public ContentChildrenRecyclerAdapter(Context context, List<SectionContentChildrenModel> children) {
+    public ContentChildrenRecyclerAdapter(List<SectionContentChildrenModel> children) {
         this.children = children;
-        this.context = context;
     }
 
     @Override
     public ChildContentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.e(TAG,"Fire onCreateViewHolder()");
-        View layoutView = LayoutInflater.from(context).inflate(R.layout.page_content, null);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.page_content, null);
         View childLayout = layoutView.findViewById(R.id.child_frame);
         ChildContentViewHolder rcv = new ChildContentViewHolder(childLayout);
+        super.bindViewHolder(rcv, viewType);
         return rcv;
     }
 
