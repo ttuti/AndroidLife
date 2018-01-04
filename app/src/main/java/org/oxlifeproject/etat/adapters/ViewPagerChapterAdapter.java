@@ -73,11 +73,8 @@ public class ViewPagerChapterAdapter extends PagerAdapter {
 
             FrameLayout frame = (FrameLayout) layout.findViewById(R.id.child_frame);
             frame.setVisibility(View.VISIBLE);
-
-            //TODO frame becomes visible but data is not attached. Why?
+            //TODO recyclerView becomes visible but no data is attached. Why?
         }
-
-
         TextView title = layout.findViewById(R.id.contentTitle);
         TextView content = layout.findViewById(R.id.contentSub);
 
